@@ -1,7 +1,9 @@
-package com.project.ZeeScraper.navigation
+package com.project.zeescraper.navigation
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -15,16 +17,16 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.project.ZeeScraper.data.CharacterViewModel
-import com.project.ZeeScraper.ui.LogScreen
-import com.project.ZeeScraper.ui.Detail_screen
-import com.project.ZeeScraper.ui.HomeScreen
+import com.project.zeescraper.data.CharacterViewModel
+import com.project.zeescraper.ui.LogScreen
+import com.project.zeescraper.ui.Detail_screen
+import com.project.zeescraper.ui.HomeScreen
 
 data class NavItem(val route: String, val icon: ImageVector, val label: String)
 
 val bottomNavItems = listOf(
     NavItem("Home", Icons.Default.Person, "Home"),
-    NavItem("Log", Icons.Default.List, "Log"),
+    NavItem("Log", Icons.AutoMirrored.Filled.List, "Log"),
 )
 
 @Composable

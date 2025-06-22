@@ -1,4 +1,4 @@
-package com.project.ZeeScraper.retrofit
+package com.project.zeescraper.retrofit
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -6,8 +6,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-object NetworkModule {
-    private const val BASE_URL = "http://192.168.1.2:8000/api/"
+object NetworkModule{
+    val BASE_URL = "http://192.168.1.2:8000/api/"
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY

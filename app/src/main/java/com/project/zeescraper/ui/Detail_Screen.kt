@@ -1,4 +1,4 @@
-package com.project.ZeeScraper.ui
+package com.project.zeescraper.ui
 
 import android.util.Log
 import androidx.compose.animation.animateContentSize
@@ -60,13 +60,13 @@ import androidx.compose.ui.zIndex
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
-import com.project.ZeeScraper.data.CharacterViewModel
-import com.project.ZeeScraper.data.DiskDrive
-import com.project.ZeeScraper.data.WEngine
-import com.project.ZeeScraper.log.AppLogger
-import com.project.ZeeScraper.log.LogLevel
-import com.project.ZeeScraper.ui.theme.Gold_S
-import com.project.ZeeScraper.ui.theme.a_card
+import com.project.zeescraper.data.CharacterViewModel
+import com.project.zeescraper.data.DiskDrive
+import com.project.zeescraper.data.WEngine
+import com.project.zeescraper.log.AppLogger
+import com.project.zeescraper.log.LogLevel
+import com.project.zeescraper.ui.theme.Gold_S
+import com.project.zeescraper.ui.theme.a_card
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)

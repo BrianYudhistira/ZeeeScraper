@@ -1,4 +1,4 @@
-package com.project.ZeeScraper
+package com.project.zeescraper
 
 import org.junit.Test
 

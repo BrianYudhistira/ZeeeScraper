@@ -1,4 +1,4 @@
-package com.project.ZeeScraper.data
+package com.project.zeescraper.data
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -69,9 +69,5 @@ class CharacterViewModel : ViewModel() {
     // ✅ Clear detail karakter saat screen keluar
     fun clearCharacterDetail() {
         _character.value = null
-    }
-
-    fun clearCharactersData(){
-        _characters.value = emptyList()
     }
 }

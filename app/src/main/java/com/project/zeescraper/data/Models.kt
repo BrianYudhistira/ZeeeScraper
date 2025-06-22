@@ -1,4 +1,4 @@
-package com.project.ZeeScraper.data
+package com.project.zeescraper.data
 
 data class CharacterList(
     val id: Int,

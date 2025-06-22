@@ -1,4 +1,4 @@
-package com.project.ZeeScraper.ui.theme
+package com.project.zeescraper.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

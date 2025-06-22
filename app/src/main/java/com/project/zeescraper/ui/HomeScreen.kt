@@ -1,4 +1,4 @@
-package com.project.ZeeScraper.ui
+package com.project.zeescraper.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -26,11 +26,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
-import com.project.ZeeScraper.data.CharacterViewModel
-import com.project.ZeeScraper.log.AppLogger
-import com.project.ZeeScraper.log.LogLevel
-import com.project.ZeeScraper.ui.theme.Gold_S
-import com.project.ZeeScraper.ui.theme.a_card
+import com.project.zeescraper.data.CharacterViewModel
+import com.project.zeescraper.log.AppLogger
+import com.project.zeescraper.log.LogLevel
+import com.project.zeescraper.ui.theme.Gold_S
+import com.project.zeescraper.ui.theme.a_card
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

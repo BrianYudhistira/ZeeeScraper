@@ -1,9 +1,9 @@
-package com.project.ZeeScraper.retrofit
+package com.project.zeescraper.retrofit
 
-import com.project.ZeeScraper.data.ApiResponse
-import com.project.ZeeScraper.data.ApiResponseDetail
-import com.project.ZeeScraper.data.CharacterDetail
-import com.project.ZeeScraper.data.CharacterList
+import com.project.zeescraper.data.ApiResponse
+import com.project.zeescraper.data.ApiResponseDetail
+import com.project.zeescraper.data.CharacterDetail
+import com.project.zeescraper.data.CharacterList
 import retrofit2.Response
 import retrofit2.http.*
 

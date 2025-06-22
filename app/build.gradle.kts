@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.project.ZeeScraper"
+    namespace = "com.project.zeescraper"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.project.gamecalc"
+        applicationId = "com.project.zeeescraper"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
@@ -19,7 +19,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL", "\"http://192.168.1.2:8000/api/\"")
+        }
         release {
+            buildConfigField("String", "BASE_URL", "\"http://192.168.1.2:8000/api/\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -36,6 +40,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 

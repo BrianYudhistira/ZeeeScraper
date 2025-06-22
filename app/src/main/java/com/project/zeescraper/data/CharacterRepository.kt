@@ -1,6 +1,6 @@
-package com.project.ZeeScraper.data
+package com.project.zeescraper.data
 
-import com.project.ZeeScraper.retrofit.NetworkModule
+import com.project.zeescraper.retrofit.NetworkModule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

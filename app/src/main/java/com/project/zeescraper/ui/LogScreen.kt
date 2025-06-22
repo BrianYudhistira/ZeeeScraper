@@ -1,4 +1,4 @@
-package com.project.ZeeScraper.ui
+package com.project.zeescraper.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -8,9 +8,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.project.ZeeScraper.log.AppLogger
-import com.project.ZeeScraper.log.LogEntry
-import com.project.ZeeScraper.log.LogLevel
+import com.project.zeescraper.log.AppLogger
+import com.project.zeescraper.log.LogEntry
+import com.project.zeescraper.log.LogLevel
 import kotlinx.coroutines.delay
 
 @Composable

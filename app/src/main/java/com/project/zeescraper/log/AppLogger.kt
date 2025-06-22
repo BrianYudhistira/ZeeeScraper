@@ -1,4 +1,4 @@
-package com.project.ZeeScraper.log
+package com.project.zeescraper.log
 
 import android.util.Log
 

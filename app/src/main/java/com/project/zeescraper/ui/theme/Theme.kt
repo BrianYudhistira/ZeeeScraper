@@ -1,4 +1,4 @@
-package com.project.ZeeScraper.ui.theme
+package com.project.zeescraper.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

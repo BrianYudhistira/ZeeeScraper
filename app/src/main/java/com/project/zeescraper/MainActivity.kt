@@ -1,4 +1,4 @@
-package com.project.ZeeScraper
+package com.project.zeescraper
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -14,9 +14,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.*
-import com.project.ZeeScraper.ui.theme.GameCalcTheme
-import com.project.ZeeScraper.navigation.BottomNavigationBar
-import com.project.ZeeScraper.navigation.NavigationHost
+import com.project.zeescraper.ui.theme.GameCalcTheme
+import com.project.zeescraper.navigation.BottomNavigationBar
+import com.project.zeescraper.navigation.NavigationHost
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

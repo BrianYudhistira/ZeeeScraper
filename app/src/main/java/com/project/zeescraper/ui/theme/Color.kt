@@ -1,4 +1,4 @@
-package com.project.ZeeScraper.ui.theme
+package com.project.zeescraper.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

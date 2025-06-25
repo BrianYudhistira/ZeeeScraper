@@ -1,6 +1,7 @@
 package com.project.zeescraper.ui
 
 import android.util.Log
+import android.widget.TextView
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -18,11 +19,13 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
@@ -31,12 +34,12 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -53,13 +56,15 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.zIndex
+import androidx.core.text.HtmlCompat
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
+import com.project.zeescraper.data.BestDiskDriveStat
 import com.project.zeescraper.data.CharacterViewModel
 import com.project.zeescraper.data.DiskDrive
 import com.project.zeescraper.data.WEngine
@@ -71,7 +76,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun Detail_screen(id: Int, viewModel: CharacterViewModel) {
+fun Detail_screen(id: Int, viewModel: CharacterViewModel, onNavigateBack: () -> Unit) {
     var selectedContent by remember { mutableStateOf("W-Engine") }
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
@@ -80,16 +85,9 @@ fun Detail_screen(id: Int, viewModel: CharacterViewModel) {
     val characterDetail by viewModel.character.collectAsState()
 
     // Load detail saat pertama kali masuk
-    LaunchedEffect(Unit) {
+    LaunchedEffect(id) { // Gunakan id sebagai key, bukan Unit
         Log.d("DetailScreen", "Loading character with ID: $id")
         viewModel.loadCharacterById(id)
-    }
-
-    // Cleanup data saat composable keluar
-    DisposableEffect(Unit) {
-        onDispose {
-            viewModel.clearCharacterDetail() // pastikan kamu punya fungsi ini di ViewModel
-        }
     }
 
     // Pull-to-refresh
@@ -108,7 +106,6 @@ fun Detail_screen(id: Int, viewModel: CharacterViewModel) {
         Box(modifier = Modifier.fillMaxSize()) {
             when {
                 isLoading && characterDetail == null -> {
-                    // Show PullRefreshIndicator di tengah saat first load
                     PullRefreshIndicator(
                         refreshing = true,
                         state = pullRefreshState,
@@ -121,11 +118,19 @@ fun Detail_screen(id: Int, viewModel: CharacterViewModel) {
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(
-                            text = "Error: $error",
-                            color = Color.Red,
-                            style = MaterialTheme.typography.bodyLarge
-                        )
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(
+                                text = "Error: $error",
+                                color = Color.Red,
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Button(
+                                onClick = { viewModel.loadCharacterById(id, forceRefresh = true) }
+                            ) {
+                                Text("Retry")
+                            }
+                        }
                     }
                 }
 
@@ -154,6 +159,23 @@ fun Detail_screen(id: Int, viewModel: CharacterViewModel) {
                                         .fillMaxWidth()
                                         .height(480.dp)
                                 ) {
+                                    // PERBAIKAN: Hapus coroutineScope yang tidak perlu
+                                    FloatingActionButton(
+                                        onClick = onNavigateBack, // Langsung panggil tanpa coroutine
+                                        modifier = Modifier
+                                            .align(Alignment.TopStart)
+                                            .padding(10.dp)
+                                            .zIndex(1f),
+                                        containerColor = Color.Black.copy(alpha = 0.5f),
+                                        elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 0.dp)
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.ArrowBack,
+                                            contentDescription = "Back To Home",
+                                            tint = Color.White
+                                        )
+                                    }
+
                                     AsyncImage(
                                         model = char?.image,
                                         contentDescription = "Character Image",
@@ -184,10 +206,10 @@ fun Detail_screen(id: Int, viewModel: CharacterViewModel) {
                                             .align(Alignment.TopEnd)
                                             .padding(10.dp)
                                     )
+
                                     if (isImageLoading) {
                                         Box(
-                                            modifier = Modifier
-                                                .fillMaxSize(),
+                                            modifier = Modifier.fillMaxSize(),
                                             contentAlignment = Alignment.Center
                                         ) {
                                             CircularProgressIndicator(
@@ -235,9 +257,7 @@ fun Detail_screen(id: Int, viewModel: CharacterViewModel) {
                             item {
                                 NavigationButtons(
                                     selectedContent = selectedContent,
-                                    onContentSelected = {
-                                        selectedContent = it
-                                    }
+                                    onContentSelected = { selectedContent = it }
                                 )
                             }
 
@@ -257,15 +277,20 @@ fun Detail_screen(id: Int, viewModel: CharacterViewModel) {
                                 }
 
                                 "Best Stat" -> {
-                                    item { SectionTitle(title = "Detail") }
+                                    item { SectionTitle(title = "Best MainStat") }
                                     item {
-                                        Text(text = "tes")
+                                        BestStatList(
+                                            bestStat = characterDetail!!.best_disk_drive_stats,
+                                            substat = characterDetail!!.substats,
+                                            endgamestats = characterDetail!!.endgame_stats
+                                        )
                                     }
                                 }
                             }
                         }
 
-                        if (listState.firstVisibleItemIndex > -1) {
+                        // PERBAIKAN: Kondisi yang lebih tepat untuk scroll to top button
+                        if (listState.firstVisibleItemIndex > 0) {
                             FloatingActionButton(
                                 onClick = {
                                     coroutineScope.launch {
@@ -275,19 +300,23 @@ fun Detail_screen(id: Int, viewModel: CharacterViewModel) {
                                 modifier = Modifier
                                     .align(Alignment.BottomEnd)
                                     .padding(16.dp)
-                                    .zIndex(1f)
+                                    .zIndex(1f),
+                                containerColor = Color.Black.copy(alpha = 0.5f),
+                                elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 0.dp)
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.KeyboardArrowUp,
-                                    contentDescription = "Scroll to Top"
+                                    contentDescription = "Scroll to Top",
+                                    tint = Color.White
                                 )
                             }
                         }
                     }
                 }
             }
-            // Jika bukan first load dan sedang refreshing, tampilkan indicator di TopCenter
-            if (isLoading && characterDetail!=null) {
+
+            // Pull refresh indicator untuk refresh state
+            if (isLoading && characterDetail != null) {
                 PullRefreshIndicator(
                     refreshing = true,
                     state = pullRefreshState,
@@ -297,7 +326,6 @@ fun Detail_screen(id: Int, viewModel: CharacterViewModel) {
         }
     }
 }
-
 
 @Composable
 private fun NavigationButtons(
@@ -386,19 +414,22 @@ private fun WeaponList(wEngine: List<WEngine>?) {
             )
         }
     }
-    Column(modifier = Modifier.background(Color.Black)) {
-        wEngine?.forEachIndexed { index, weapon ->
-            WeaponCard(
-                weapon = Weapon(
-                    name = weapon.build_name,
-                    baseatt = weapon.build_s,
-                    substat = "PR",
-                    description = weapon.detail,
-                    imageUrl = weapon.w_engine_picture
-                ),
-                isLast = index < wEngine.size - 1
-            )
+    else{
+        Column(modifier = Modifier.background(Color.Black)) {
+            wEngine.forEachIndexed { index, weapon ->
+                WeaponCard(
+                    weapon = Weapon(
+                        name = weapon.build_name,
+                        baseatt = weapon.build_s,
+                        substat = "PR",
+                        description = weapon.detail,
+                        imageUrl = weapon.w_engine_picture
+                    ),
+                    isLast = index < wEngine.size - 1
+                )
+            }
         }
+        Spacer(modifier = Modifier.height(10.dp))
     }
 }
 
@@ -417,18 +448,129 @@ private fun DiskDriveList(diskDrives: List<DiskDrive>?) {
             )
         }
     }
-    Column(modifier = Modifier.background(Color.Black)) {
-        diskDrives?.forEachIndexed { index, disk ->
-            DiskDriveCard(
-                disk = Disk(
-                    name = disk.name,
-                    link = disk.image_link,
-                    detail_2pc = disk.detail_2pc,
-                    detail_4pc = disk.detail_4pc
-                ),
-                isLast = index < diskDrives.size - 1
+    else{
+        Column(modifier = Modifier.background(Color.Black)) {
+            diskDrives.forEachIndexed { index, disk ->
+                DiskDriveCard(
+                    disk = Disk(
+                        name = disk.name,
+                        link = disk.image_link,
+                        detail_2pc = disk.detail_2pc,
+                        detail_4pc = disk.detail_4pc
+                    ),
+                    isLast = index < diskDrives.size - 1
+                )
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+        }
+    }
+}
+
+@Composable
+private fun BestStatList(bestStat: List<BestDiskDriveStat>, substat: String, endgamestats: String){
+    if (bestStat.isEmpty() && substat.isEmpty() && endgamestats.isEmpty()) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(80.dp)
+                .background(Color.Black), // Added background to match the Column
+            contentAlignment = Alignment.Center // Center the text
+        ) {
+            Text(
+                text = "Upcoming Character!!!", color = Color.Red, fontSize = 20.sp
             )
         }
+    }
+    else{
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .background(Color.Black), // Added background to match the Column
+            contentAlignment = Alignment.Center // Center the text
+        ){
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 1.dp)
+            ) {
+                Column(modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .shadow(4.dp, shape = RoundedCornerShape(16.dp))
+                    .background(Color.DarkGray.copy(alpha = 0.99f), shape = RoundedCornerShape(16.dp))
+                    .padding(horizontal = 20.dp, vertical = 10.dp)) {
+
+                    bestStat.forEachIndexed { index, bestDiskDriveStat ->
+                        BestDiskStatCard(
+                            bestDiskDriveStat = BestStat(
+                                disk_number = bestDiskDriveStat.disk_number,
+                                disk_description = bestDiskDriveStat.disk_description
+                            ),
+                            isLast = index < bestStat.size - 1
+                        )
+                    }
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+
+        SectionTitle(title = "Best SubStat")
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .background(Color.Black)
+                .padding(horizontal = 12.dp, vertical = 1.dp), // Added background to match the Column
+            contentAlignment = Alignment.Center // Center the text
+        ){
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .shadow(4.dp, shape = RoundedCornerShape(16.dp))
+                    .background(Color.DarkGray.copy(alpha = 0.99f), shape = RoundedCornerShape(16.dp))
+                    .padding(horizontal = 20.dp, vertical = 10.dp)){
+                Text(
+                    text = substat,
+                    color = Color.White,
+                    fontSize = 16.sp,
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+
+        SectionTitle(title = "Best EndGame Stats")
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .background(Color.Black)
+                .padding(horizontal = 12.dp, vertical = 1.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .shadow(4.dp, shape = RoundedCornerShape(16.dp))
+                    .background(Color.DarkGray.copy(alpha = 0.99f), shape = RoundedCornerShape(16.dp))
+                    .padding(horizontal = 20.dp, vertical = 10.dp)
+            ) {
+                AndroidView(
+                    factory = { context ->
+                        TextView(context).apply {
+                            text = HtmlCompat.fromHtml(endgamestats, HtmlCompat.FROM_HTML_MODE_COMPACT)
+                            setTextColor(android.graphics.Color.WHITE)
+                            textSize = 16f
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+
     }
 }
 
@@ -447,6 +589,29 @@ data class Disk(
     val detail_2pc: String,
     val detail_4pc: String,
 )
+
+data class BestStat(
+    val disk_number: String,
+    val disk_description: String
+)
+
+@Composable
+fun BestDiskStatCard(bestDiskDriveStat: BestStat, isLast: Boolean){
+    Text(
+        text = "Disk Number: ${bestDiskDriveStat.disk_number}",
+        color = Color.White,
+        fontSize = 16.sp,
+        )
+
+    Text(
+        text = "Disk Description: ${bestDiskDriveStat.disk_description}",
+        color = Color.White,
+        fontSize = 16.sp,
+        )
+    if (isLast){
+        Spacer(modifier = Modifier.height(8.dp))
+    }
+}
 
 @Composable
 fun WeaponCard(weapon: Weapon, isLast: Boolean = false) {
@@ -658,10 +823,4 @@ private fun DiskDriveCard(disk: Disk, isLast: Boolean = false) {
     if (isLast) {
         Spacer(modifier = Modifier.height(8.dp))
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun Main() {
-
 }

@@ -43,7 +43,6 @@ fun LogScreen() {
                 }
             }
 
-            Divider()
 
             LazyColumn(
                 modifier = Modifier

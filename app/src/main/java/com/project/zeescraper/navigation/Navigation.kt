@@ -1,9 +1,11 @@
+// NavigationHost.kt with popEnterTransition optimized for HomeScreen
 package com.project.zeescraper.navigation
 
+import androidx.compose.animation.*
+import androidx.compose.animation.core.tween
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -18,15 +20,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.project.zeescraper.data.CharacterViewModel
-import com.project.zeescraper.ui.LogScreen
 import com.project.zeescraper.ui.Detail_screen
 import com.project.zeescraper.ui.HomeScreen
+import com.project.zeescraper.ui.LogScreen
 
+// Bottom nav items
 data class NavItem(val route: String, val icon: ImageVector, val label: String)
 
 val bottomNavItems = listOf(
     NavItem("Home", Icons.Default.Person, "Home"),
-    NavItem("Log", Icons.AutoMirrored.Filled.List, "Log"),
+    NavItem("Log", Icons.AutoMirrored.Filled.List, "Log")
 )
 
 @Composable
@@ -65,16 +68,71 @@ fun NavigationHost(navController: NavHostController, modifier: Modifier = Modifi
         startDestination = "Home",
         modifier = modifier
     ) {
-        composable("Home") {
-            HomeScreen(navController = navController, viewModel = characterViewModel)
+        composable(
+            route = "Home",
+            enterTransition = {
+                fadeIn(animationSpec = tween(200))
+            },
+            popEnterTransition = {
+                fadeIn(animationSpec = tween(200)) // Light transition for smooth back
+            },
+            exitTransition = {
+                fadeOut(animationSpec = tween(200))
+            },
+            popExitTransition = {
+                fadeOut(animationSpec = tween(200))
+            }
+        ) {
+            HomeScreen(navController, characterViewModel)
         }
-        composable("Log") {
+
+        composable(
+            route = "Log",
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { it },
+                    animationSpec = tween(300)
+                ) + fadeIn(animationSpec = tween(300))
+            },
+            exitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -it },
+                    animationSpec = tween(300)
+                ) + fadeOut(animationSpec = tween(300))
+            },
+            popEnterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { -it },
+                    animationSpec = tween(300)
+                ) + fadeIn(animationSpec = tween(300))
+            },
+            popExitTransition = {
+                fadeOut(animationSpec = tween(300))
+            }
+        ) {
             LogScreen()
         }
-        composable("Detail/{id}") { backStackEntry ->
+
+        composable(
+            route = "detail/{id}",
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { it },
+                    animationSpec = tween(350)
+                ) + fadeIn(animationSpec = tween(350))
+            },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { it },
+                    animationSpec = tween(350)
+                ) + fadeOut(animationSpec = tween(250))
+            }
+        ) { backStackEntry ->
             val id = backStackEntry.arguments?.getString("id")?.toIntOrNull()
             if (id != null) {
-                Detail_screen(id = id, viewModel = characterViewModel)
+                Detail_screen(id = id, viewModel = characterViewModel) {
+                    navController.popBackStack()
+                }
             }
         }
     }

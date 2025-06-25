@@ -1,3 +1,4 @@
+// HomeScreen.kt with performance optimizations for smooth back animation
 package com.project.zeescraper.ui
 
 import androidx.compose.foundation.background
@@ -14,23 +15,23 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shadow
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.project.zeescraper.data.CharacterViewModel
 import com.project.zeescraper.log.AppLogger
 import com.project.zeescraper.log.LogLevel
 import com.project.zeescraper.ui.theme.Gold_S
 import com.project.zeescraper.ui.theme.a_card
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -39,9 +40,7 @@ fun HomeScreen(navController: NavHostController, viewModel: CharacterViewModel) 
     val isLoading by viewModel.isLoading.collectAsState()
     val error by viewModel.error.collectAsState()
 
-    var initialLoadDone by remember { mutableStateOf(false) }
     var isRefreshing by remember { mutableStateOf(false) }
-
     val listState = rememberLazyListState()
 
     val pullRefreshState = rememberPullRefreshState(
@@ -52,19 +51,17 @@ fun HomeScreen(navController: NavHostController, viewModel: CharacterViewModel) 
         }
     )
 
+    val showContent = remember { mutableStateOf(false) }
     LaunchedEffect(Unit) {
-        viewModel.loadCharacters()
+        delay(200)
+        if (characters.isEmpty()) {
+            viewModel.loadCharacters()
+        }
+        showContent.value = true
     }
 
-    LaunchedEffect(isLoading, characters) {
-        if (!isLoading && characters.isNotEmpty() && !initialLoadDone) {
-            initialLoadDone = true
-        }
-
-        // Reset isRefreshing when loading is complete
-        if (!isLoading && isRefreshing) {
-            isRefreshing = false
-        }
+    LaunchedEffect(isLoading) {
+        if (!isLoading) isRefreshing = false
     }
 
     Box(
@@ -74,45 +71,28 @@ fun HomeScreen(navController: NavHostController, viewModel: CharacterViewModel) 
     ) {
         Surface(modifier = Modifier.fillMaxSize()) {
             when {
-                error != null -> {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = "Error: $error",
-                            color = Color.Red,
-                            style = MaterialTheme.typography.bodyLarge
-                        )
-                    }
+                error != null -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text("Error: $error", color = Color.Red)
                 }
-
-                characters.isEmpty() && !isLoading -> {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = "No characters available",
-                            style = MaterialTheme.typography.bodyLarge
-                        )
-                    }
+                characters.isEmpty() && !isLoading -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text("No characters available")
                 }
-
-                else -> {
-                    val profileCardList = characters.map {
-                        ProfileCard(
-                            id = it.id,
-                            name = it.name,
-                            tier = it.tier,
-                            link = it.link,
-                            image = it.image,
-                            element = it.element,
-                            elementpict = it.element_picture
+                showContent.value -> {
+                    val cardRows by remember(characters) {
+                        mutableStateOf(
+                            characters.map {
+                                ProfileCard(
+                                    id = it.id,
+                                    name = it.name,
+                                    tier = it.tier,
+                                    link = it.link,
+                                    image = it.image,
+                                    element = it.element,
+                                    elementpict = it.element_picture
+                                )
+                            }.chunked(4)
                         )
                     }
-
-                    val cardRows = profileCardList.chunked(4)
 
                     LazyColumn(
                         state = listState,
@@ -143,36 +123,21 @@ fun HomeScreen(navController: NavHostController, viewModel: CharacterViewModel) 
             }
         }
 
-        // Loading indicator hanya di center untuk initial load
-        if (isLoading && !initialLoadDone) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
+        if (isLoading && characters.isEmpty()) {
+            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()
             }
         }
 
-        // Pull refresh indicator hanya untuk refresh action
         if (isRefreshing) {
             PullRefreshIndicator(
-                refreshing = isRefreshing,
+                refreshing = true,
                 state = pullRefreshState,
                 modifier = Modifier.align(Alignment.TopCenter)
             )
         }
     }
 }
-
-data class ProfileCard(
-    val id: Int,
-    val name: String,
-    val tier: String,
-    val link: String,
-    val image: String,
-    val element: String,
-    val elementpict: String
-)
 
 @Composable
 fun ProfileCardItem(
@@ -186,26 +151,26 @@ fun ProfileCardItem(
         else -> a_card
     }
 
+    val request = ImageRequest.Builder(LocalContext.current)
+        .data(card.image)
+        .size(256) // Thumbnail size for smoother loading
+        .crossfade(true)
+        .build()
+
     Card(
         modifier = modifier
-            .width(180.dp)
             .aspectRatio(0.70f)
-            .padding(vertical = 4.dp, horizontal = 4.dp)
-            .clickable { onCardClick(card) }
-            .shadow(10.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
-        shape = RectangleShape
+            .padding(4.dp)
+            .clickable { onCardClick(card) },
+        shape = MaterialTheme.shapes.medium,
+        elevation = CardDefaults.cardElevation(10.dp)
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             var isImageLoading by remember { mutableStateOf(true) }
-
             AsyncImage(
-                model = card.image,
-                contentDescription = "Gambar ${card.name}",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(bgColor),
+                model = request,
+                contentDescription = "Character Image",
+                modifier = Modifier.fillMaxSize().background(bgColor),
                 onLoading = {
                     isImageLoading = true
                 },
@@ -214,20 +179,26 @@ fun ProfileCardItem(
                 },
                 onError = {
                     isImageLoading = false
-                    AppLogger.log(LogLevel.WARNING, "Char Image", "${card.name} error, Link: ${card.link}")
+                    AppLogger.log(
+                        LogLevel.WARNING,
+                        "Char Image",
+                        "${card.name} error, Link: ${card.link}"
+                    )
                 }
             )
-
             if (isImageLoading) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    CircularProgressIndicator(color = Color.White, strokeWidth = 2.dp, modifier = Modifier.size(24.dp))
+                    CircularProgressIndicator(
+                        color = Color.White,
+                        strokeWidth = 2.dp,
+                        modifier = Modifier.size(24.dp)
+                    )
                 }
             }
-
             if (card.elementpict != "unknown") {
                 AsyncImage(
                     model = card.elementpict,
@@ -237,11 +208,19 @@ fun ProfileCardItem(
                         .size(20.dp)
                         .background(Color.Black.copy(alpha = 0.5f)),
                     onError = {
-                        AppLogger.log(LogLevel.WARNING, "Element Image", "${card.name} error, Link: ${card.elementpict}")
+                        AppLogger.log(
+                            LogLevel.WARNING,
+                            "Element Image",
+                            "${card.name} error, Link: ${card.elementpict}"
+                        )
                     }
                 )
             } else {
-                AppLogger.log(LogLevel.WARNING, "Element Image", "${card.name} error, Link: ${card.elementpict}")
+                AppLogger.log(
+                    LogLevel.WARNING,
+                    "Element Image",
+                    "${card.name} error, Link: ${card.elementpict}"
+                )
             }
 
             Text(
@@ -262,3 +241,13 @@ fun ProfileCardItem(
         }
     }
 }
+
+data class ProfileCard(
+    val id: Int,
+    val name: String,
+    val tier: String,
+    val link: String,
+    val image: String,
+    val element: String,
+    val elementpict: String
+)

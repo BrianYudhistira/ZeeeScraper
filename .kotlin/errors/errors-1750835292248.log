@@ -1,0 +1,407 @@
+kotlin version: 2.0.21
+error message: org.jetbrains.kotlin.backend.common.BackendException: Backend Internal error: Exception during IR lowering
+File being compiled: E:/Project/ZeeeScraper/app/src/main/java/com/project/zeescraper/navigation/Navigation.kt
+The root cause java.lang.RuntimeException was thrown at: org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:47)
+	at org.jetbrains.kotlin.backend.common.CodegenUtil.reportBackendException(CodegenUtil.kt:253)
+	at org.jetbrains.kotlin.backend.common.CodegenUtil.reportBackendException$default(CodegenUtil.kt:236)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invokeSequential(performByIrFile.kt:65)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invoke(performByIrFile.kt:52)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invoke(performByIrFile.kt:38)
+	at org.jetbrains.kotlin.backend.common.phaser.NamedCompilerPhase.phaseBody(CompilerPhase.kt:166)
+	at org.jetbrains.kotlin.backend.common.phaser.AbstractNamedCompilerPhase.invoke(CompilerPhase.kt:113)
+	at org.jetbrains.kotlin.backend.common.phaser.CompositePhase.invoke(PhaseBuilders.kt:27)
+	at org.jetbrains.kotlin.backend.common.phaser.CompositePhase.invoke(PhaseBuilders.kt:14)
+	at org.jetbrains.kotlin.backend.common.phaser.NamedCompilerPhase.phaseBody(CompilerPhase.kt:166)
+	at org.jetbrains.kotlin.backend.common.phaser.AbstractNamedCompilerPhase.invoke(CompilerPhase.kt:113)
+	at org.jetbrains.kotlin.backend.common.phaser.CompilerPhaseKt.invokeToplevel(CompilerPhase.kt:62)
+	at org.jetbrains.kotlin.backend.jvm.JvmIrCodegenFactory.invokeCodegen(JvmIrCodegenFactory.kt:371)
+	at org.jetbrains.kotlin.codegen.CodegenFactory.generateModule(CodegenFactory.kt:47)
+	at org.jetbrains.kotlin.backend.jvm.JvmIrCodegenFactory.generateModuleInFrontendIRMode(JvmIrCodegenFactory.kt:433)
+	at org.jetbrains.kotlin.cli.jvm.compiler.pipeline.JvmCompilerPipelineKt.generateCodeFromIr(jvmCompilerPipeline.kt:246)
+	at org.jetbrains.kotlin.cli.jvm.compiler.pipeline.JvmCompilerPipelineKt.compileModulesUsingFrontendIrAndLightTree(jvmCompilerPipeline.kt:142)
+	at org.jetbrains.kotlin.cli.jvm.K2JVMCompiler.doExecute(K2JVMCompiler.kt:148)
+	at org.jetbrains.kotlin.cli.jvm.K2JVMCompiler.doExecute(K2JVMCompiler.kt:43)
+	at org.jetbrains.kotlin.cli.common.CLICompiler.execImpl(CLICompiler.kt:103)
+	at org.jetbrains.kotlin.cli.common.CLICompiler.execImpl(CLICompiler.kt:49)
+	at org.jetbrains.kotlin.cli.common.CLITool.exec(CLITool.kt:101)
+	at org.jetbrains.kotlin.incremental.IncrementalJvmCompilerRunner.runCompiler(IncrementalJvmCompilerRunner.kt:464)
+	at org.jetbrains.kotlin.incremental.IncrementalJvmCompilerRunner.runCompiler(IncrementalJvmCompilerRunner.kt:73)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.doCompile(IncrementalCompilerRunner.kt:506)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.compileImpl(IncrementalCompilerRunner.kt:423)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.compileNonIncrementally(IncrementalCompilerRunner.kt:301)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.compile(IncrementalCompilerRunner.kt:129)
+	at org.jetbrains.kotlin.daemon.CompileServiceImplBase.execIncrementalCompiler(CompileServiceImpl.kt:675)
+	at org.jetbrains.kotlin.daemon.CompileServiceImplBase.access$execIncrementalCompiler(CompileServiceImpl.kt:92)
+	at org.jetbrains.kotlin.daemon.CompileServiceImpl.compile(CompileServiceImpl.kt:1660)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(Unknown Source)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Unknown Source)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Unknown Source)
+	at java.base/java.security.AccessController.doPrivileged(Unknown Source)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Unknown Source)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(Unknown Source)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(Unknown Source)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(Unknown Source)
+	at java.base/java.security.AccessController.doPrivileged(Unknown Source)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.RuntimeException: Exception while generating code for:
+FUN name:NavigationHost visibility:public modality:FINAL <> (navController:androidx.navigation.NavHostController, modifier:androidx.compose.ui.Modifier?, $composer:androidx.compose.runtime.Composer?, $changed:kotlin.Int, $default:kotlin.Int) returnType:kotlin.Unit
+  annotations:
+    OptIn(markerClass = [CLASS_REFERENCE 'CLASS IR_EXTERNAL_DECLARATION_STUB ANNOTATION_CLASS name:ExperimentalAnimationApi modality:OPEN visibility:public superTypes:[kotlin.Annotation]' type=kotlin.reflect.KClass<androidx.compose.animation.ExperimentalAnimationApi>])
+    Composable
+    ComposableTarget(applier = "androidx.compose.ui.UiComposable")
+  VALUE_PARAMETER name:navController index:0 type:androidx.navigation.NavHostController
+  VALUE_PARAMETER name:modifier index:1 type:androidx.compose.ui.Modifier? [assignable]
+  VALUE_PARAMETER name:$composer index:2 type:androidx.compose.runtime.Composer? [assignable]
+  VALUE_PARAMETER name:$changed index:3 type:kotlin.Int
+  VALUE_PARAMETER MASK_FOR_DEFAULT_FUNCTION name:$default index:4 type:kotlin.Int
+  BLOCK_BODY
+    BLOCK type=kotlin.Unit origin=null
+      SET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Unit origin=null
+        CALL 'public abstract fun startRestartGroup (key: kotlin.Int): androidx.compose.runtime.Composer declared in androidx.compose.runtime.Composer' type=androidx.compose.runtime.Composer origin=null
+          $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+          key: CONST Int type=kotlin.Int value=143562402
+      CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+        composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+        sourceInformation: CONST String type=kotlin.String value="C(NavigationHost)P(1)64@2607L11,70@2770L38,71@2835L39,72@2905L38,73@2973L39,74@3019L580,66@2624L975:Navigation.kt#8w8fmk"
+    VAR name:$dirty type:kotlin.Int [val]
+      GET_VAR '$changed: kotlin.Int declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Int origin=null
+    WHEN type=kotlin.Unit origin=IF
+      BRANCH
+        if: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+          $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+            arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: GET_VAR '$default: kotlin.Int declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Int origin=null
+              other: CONST Int type=kotlin.Int value=1
+            arg1: CONST Int type=kotlin.Int value=0
+        then: SET_VAR 'val $dirty: kotlin.Int [val] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Unit origin=null
+          CALL 'public final fun or (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Int origin=null
+            other: CONST Int type=kotlin.Int value=6
+      BRANCH
+        if: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+          arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: GET_VAR '$changed: kotlin.Int declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Int origin=null
+            other: CONST Int type=kotlin.Int value=6
+          arg1: CONST Int type=kotlin.Int value=0
+        then: SET_VAR 'val $dirty: kotlin.Int [val] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Unit origin=null
+          CALL 'public final fun or (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Int origin=null
+            other: WHEN type=kotlin.Int origin=IF
+              BRANCH
+                if: CALL 'public open fun changedInstance (value: kotlin.Any?): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+                  value: GET_VAR 'navController: androidx.navigation.NavHostController declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.navigation.NavHostController origin=null
+                then: CONST Int type=kotlin.Int value=4
+              BRANCH
+                if: CONST Boolean type=kotlin.Boolean value=true
+                then: CONST Int type=kotlin.Int value=2
+    WHEN type=kotlin.Unit origin=IF
+      BRANCH
+        if: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+          $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+            arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: GET_VAR '$default: kotlin.Int declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Int origin=null
+              other: CONST Int type=kotlin.Int value=2
+            arg1: CONST Int type=kotlin.Int value=0
+        then: SET_VAR 'val $dirty: kotlin.Int [val] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Unit origin=null
+          CALL 'public final fun or (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Int origin=null
+            other: CONST Int type=kotlin.Int value=48
+      BRANCH
+        if: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+          arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: GET_VAR '$changed: kotlin.Int declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Int origin=null
+            other: CONST Int type=kotlin.Int value=48
+          arg1: CONST Int type=kotlin.Int value=0
+        then: SET_VAR 'val $dirty: kotlin.Int [val] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Unit origin=null
+          CALL 'public final fun or (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+            $this: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Int origin=null
+            other: WHEN type=kotlin.Int origin=IF
+              BRANCH
+                if: CALL 'public abstract fun changed (value: kotlin.Any?): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+                  value: GET_VAR 'modifier: androidx.compose.ui.Modifier? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.ui.Modifier? origin=null
+                then: CONST Int type=kotlin.Int value=32
+              BRANCH
+                if: CONST Boolean type=kotlin.Boolean value=true
+                then: CONST Int type=kotlin.Int value=16
+    WHEN type=kotlin.Unit origin=IF
+      BRANCH
+        if: CALL 'public final fun OROR (arg0: kotlin.Boolean, arg1: kotlin.Boolean): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+          arg0: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+            $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+              arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                $this: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Int origin=null
+                other: CONST Int type=kotlin.Int value=19
+              arg1: CONST Int type=kotlin.Int value=18
+          arg1: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+            $this: CALL 'public abstract fun <get-skipping> (): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+              $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+        then: BLOCK type=kotlin.Unit origin=null
+          WHEN type=kotlin.Unit origin=IF
+            BRANCH
+              if: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                  arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                    $this: GET_VAR '$default: kotlin.Int declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Int origin=null
+                    other: CONST Int type=kotlin.Int value=2
+                  arg1: CONST Int type=kotlin.Int value=0
+              then: SET_VAR 'modifier: androidx.compose.ui.Modifier? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Unit origin=null
+                GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:Companion type:androidx.compose.ui.Modifier.Companion visibility:public [final,static] declared in androidx.compose.ui.Modifier' type=androidx.compose.ui.Modifier.Companion origin=null
+          WHEN type=kotlin.Unit origin=IF
+            BRANCH
+              if: CALL 'public final fun isTraceInProgress (): kotlin.Boolean declared in androidx.compose.runtime.ComposerKt' type=kotlin.Boolean origin=null
+              then: CALL 'public final fun traceEventStart (key: kotlin.Int, dirty1: kotlin.Int, dirty2: kotlin.Int, info: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                key: CONST Int type=kotlin.Int value=143562402
+                dirty1: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Int origin=null
+                dirty2: CONST Int type=kotlin.Int value=-1
+                info: CONST String type=kotlin.String value="com.project.zeescraper.navigation.NavigationHost (Navigation.kt:63)"
+          VAR name:characterViewModel type:com.project.zeescraper.data.CharacterViewModel [val]
+            CALL 'public final fun viewModel <VM> (viewModelStoreOwner: androidx.lifecycle.ViewModelStoreOwner?, key: kotlin.String?, factory: androidx.lifecycle.ViewModelProvider.Factory?, extras: androidx.lifecycle.viewmodel.CreationExtras?, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $default: kotlin.Int): VM of androidx.lifecycle.viewmodel.compose.ViewModelKt.viewModel [inline] declared in androidx.lifecycle.viewmodel.compose.ViewModelKt' type=com.project.zeescraper.data.CharacterViewModel origin=null
+              <VM>: com.project.zeescraper.data.CharacterViewModel
+              viewModelStoreOwner: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                CONST Null type=kotlin.Nothing? value=null
+              key: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                CONST Null type=kotlin.Nothing? value=null
+              factory: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                CONST Null type=kotlin.Nothing? value=null
+              extras: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                CONST Null type=kotlin.Nothing? value=null
+              $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+              $changed: CONST Int type=kotlin.Int value=0
+              $default: CONST Int type=kotlin.Int value=15
+          CALL 'public final fun AnimatedNavHost (navController: androidx.navigation.NavHostController, startDestination: kotlin.String, modifier: androidx.compose.ui.Modifier?, contentAlignment: androidx.compose.ui.Alignment?, route: kotlin.String?, enterTransition: @[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.EnterTransition>?, exitTransition: @[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.ExitTransition>?, popEnterTransition: @[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.EnterTransition>?, popExitTransition: @[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.ExitTransition>?, builder: @[ExtensionFunctionType] kotlin.Function1<androidx.navigation.NavGraphBuilder, kotlin.Unit>, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $default: kotlin.Int): kotlin.Unit declared in com.google.accompanist.navigation.animation.AnimatedNavHostKt' type=kotlin.Unit origin=null
+            navController: GET_VAR 'navController: androidx.navigation.NavHostController declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.navigation.NavHostController origin=null
+            startDestination: CONST String type=kotlin.String value="Home"
+            modifier: GET_VAR 'modifier: androidx.compose.ui.Modifier? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.ui.Modifier origin=null
+            contentAlignment: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+              CONST Null type=kotlin.Nothing? value=null
+            route: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+              CONST Null type=kotlin.Nothing? value=null
+            enterTransition: BLOCK type=@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.EnterTransition> origin=null
+              BLOCK type=kotlin.Unit origin=null
+                CALL 'public abstract fun startReplaceGroup (key: kotlin.Int): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+                  key: CONST Int type=kotlin.Int value=712859636
+                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+                  sourceInformation: CONST String type=kotlin.String value="CC(remember):Navigation.kt#9igjgp"
+              VAR IR_TEMPORARY_VARIABLE name:tmp0_group type:@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.EnterTransition> [val]
+                CALL 'public final fun cache <T> (invalid: kotlin.Boolean, block: @[DisallowComposableCalls] kotlin.Function0<T of androidx.compose.runtime.ComposerKt.cache>): T of androidx.compose.runtime.ComposerKt.cache [inline] declared in androidx.compose.runtime.ComposerKt' type=@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.EnterTransition> origin=null
+                  <T>: @[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.EnterTransition>
+                  $receiver: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+                  invalid: CONST Boolean type=kotlin.Boolean value=false
+                  block: BLOCK type=kotlin.Function0<@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.EnterTransition>> origin=LAMBDA
+                    COMPOSITE type=kotlin.Unit origin=null
+                    FUNCTION_REFERENCE 'private final fun NavigationHost$lambda$3 (): @[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.EnterTransition> declared in com.project.zeescraper.navigation.NavigationKt' type=kotlin.Function0<@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.EnterTransition>> origin=INLINE_LAMBDA reflectionTarget=null
+              CALL 'public abstract fun endReplaceGroup (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+              GET_VAR 'val tmp0_group: @[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.EnterTransition> [val] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.EnterTransition> origin=null
+            exitTransition: BLOCK type=@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.ExitTransition> origin=null
+              BLOCK type=kotlin.Unit origin=null
+                CALL 'public abstract fun startReplaceGroup (key: kotlin.Int): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+                  key: CONST Int type=kotlin.Int value=712861717
+                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+                  sourceInformation: CONST String type=kotlin.String value="CC(remember):Navigation.kt#9igjgp"
+              VAR IR_TEMPORARY_VARIABLE name:tmp1_group type:@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.ExitTransition> [val]
+                CALL 'public final fun cache <T> (invalid: kotlin.Boolean, block: @[DisallowComposableCalls] kotlin.Function0<T of androidx.compose.runtime.ComposerKt.cache>): T of androidx.compose.runtime.ComposerKt.cache [inline] declared in androidx.compose.runtime.ComposerKt' type=@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.ExitTransition> origin=null
+                  <T>: @[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.ExitTransition>
+                  $receiver: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+                  invalid: CONST Boolean type=kotlin.Boolean value=false
+                  block: BLOCK type=kotlin.Function0<@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.ExitTransition>> origin=LAMBDA
+                    COMPOSITE type=kotlin.Unit origin=null
+                    FUNCTION_REFERENCE 'private final fun NavigationHost$lambda$5 (): @[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.ExitTransition> declared in com.project.zeescraper.navigation.NavigationKt' type=kotlin.Function0<@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.ExitTransition>> origin=INLINE_LAMBDA reflectionTarget=null
+              CALL 'public abstract fun endReplaceGroup (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+              GET_VAR 'val tmp1_group: @[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.ExitTransition> [val] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.ExitTransition> origin=null
+            popEnterTransition: BLOCK type=@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.EnterTransition> origin=null
+              BLOCK type=kotlin.Unit origin=null
+                CALL 'public abstract fun startReplaceGroup (key: kotlin.Int): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+                  key: CONST Int type=kotlin.Int value=712863956
+                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+                  sourceInformation: CONST String type=kotlin.String value="CC(remember):Navigation.kt#9igjgp"
+              VAR IR_TEMPORARY_VARIABLE name:tmp2_group type:@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.EnterTransition> [val]
+                CALL 'public final fun cache <T> (invalid: kotlin.Boolean, block: @[DisallowComposableCalls] kotlin.Function0<T of androidx.compose.runtime.ComposerKt.cache>): T of androidx.compose.runtime.ComposerKt.cache [inline] declared in androidx.compose.runtime.ComposerKt' type=@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.EnterTransition> origin=null
+                  <T>: @[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.EnterTransition>
+                  $receiver: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+                  invalid: CONST Boolean type=kotlin.Boolean value=false
+                  block: BLOCK type=kotlin.Function0<@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.EnterTransition>> origin=LAMBDA
+                    COMPOSITE type=kotlin.Unit origin=null
+                    FUNCTION_REFERENCE 'private final fun NavigationHost$lambda$7 (): @[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.EnterTransition> declared in com.project.zeescraper.navigation.NavigationKt' type=kotlin.Function0<@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.EnterTransition>> origin=INLINE_LAMBDA reflectionTarget=null
+              CALL 'public abstract fun endReplaceGroup (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+              GET_VAR 'val tmp2_group: @[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.EnterTransition> [val] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.EnterTransition> origin=null
+            popExitTransition: BLOCK type=@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.ExitTransition> origin=null
+              BLOCK type=kotlin.Unit origin=null
+                CALL 'public abstract fun startReplaceGroup (key: kotlin.Int): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+                  key: CONST Int type=kotlin.Int value=712866133
+                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+                  sourceInformation: CONST String type=kotlin.String value="CC(remember):Navigation.kt#9igjgp"
+              VAR IR_TEMPORARY_VARIABLE name:tmp3_group type:@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.ExitTransition> [val]
+                CALL 'public final fun cache <T> (invalid: kotlin.Boolean, block: @[DisallowComposableCalls] kotlin.Function0<T of androidx.compose.runtime.ComposerKt.cache>): T of androidx.compose.runtime.ComposerKt.cache [inline] declared in androidx.compose.runtime.ComposerKt' type=@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.ExitTransition> origin=null
+                  <T>: @[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.ExitTransition>
+                  $receiver: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+                  invalid: CONST Boolean type=kotlin.Boolean value=false
+                  block: BLOCK type=kotlin.Function0<@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.ExitTransition>> origin=LAMBDA
+                    COMPOSITE type=kotlin.Unit origin=null
+                    FUNCTION_REFERENCE 'private final fun NavigationHost$lambda$9 (): @[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.ExitTransition> declared in com.project.zeescraper.navigation.NavigationKt' type=kotlin.Function0<@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.ExitTransition>> origin=INLINE_LAMBDA reflectionTarget=null
+              CALL 'public abstract fun endReplaceGroup (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+              GET_VAR 'val tmp3_group: @[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.ExitTransition> [val] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=@[ExtensionFunctionType] kotlin.Function1<IrErrorType(null), androidx.compose.animation.ExitTransition> origin=null
+            builder: BLOCK type=@[ExtensionFunctionType] kotlin.Function1<androidx.navigation.NavGraphBuilder, kotlin.Unit> origin=null
+              BLOCK type=kotlin.Unit origin=null
+                CALL 'public abstract fun startReplaceGroup (key: kotlin.Int): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+                  key: CONST Int type=kotlin.Int value=712868146
+                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+                  sourceInformation: CONST String type=kotlin.String value="CC(remember):Navigation.kt#9igjgp"
+              VAR IR_TEMPORARY_VARIABLE name:tmp4_group type:@[ExtensionFunctionType] kotlin.Function1<androidx.navigation.NavGraphBuilder, kotlin.Unit> [val]
+                CALL 'public final fun cache <T> (invalid: kotlin.Boolean, block: @[DisallowComposableCalls] kotlin.Function0<T of androidx.compose.runtime.ComposerKt.cache>): T of androidx.compose.runtime.ComposerKt.cache [inline] declared in androidx.compose.runtime.ComposerKt' type=@[ExtensionFunctionType] kotlin.Function1<androidx.navigation.NavGraphBuilder, kotlin.Unit> origin=null
+                  <T>: @[ExtensionFunctionType] kotlin.Function1<androidx.navigation.NavGraphBuilder, kotlin.Unit>
+                  $receiver: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+                  invalid: CALL 'public final fun or (other: kotlin.Boolean): kotlin.Boolean [infix] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                    $this: CALL 'public open fun changedInstance (value: kotlin.Any?): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                      $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+                      value: GET_VAR 'navController: androidx.navigation.NavHostController declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.navigation.NavHostController origin=null
+                    other: CALL 'public open fun changedInstance (value: kotlin.Any?): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                      $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+                      value: GET_VAR 'val characterViewModel: com.project.zeescraper.data.CharacterViewModel [val] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=com.project.zeescraper.data.CharacterViewModel origin=null
+                  block: BLOCK type=kotlin.Function0<@[ExtensionFunctionType] kotlin.Function1<androidx.navigation.NavGraphBuilder, kotlin.Unit>> origin=LAMBDA
+                    COMPOSITE type=kotlin.Unit origin=null
+                    FUNCTION_REFERENCE 'private final fun NavigationHost$lambda$11 ($navController: androidx.navigation.NavHostController, $characterViewModel: com.project.zeescraper.data.CharacterViewModel): @[ExtensionFunctionType] kotlin.Function1<androidx.navigation.NavGraphBuilder, kotlin.Unit> declared in com.project.zeescraper.navigation.NavigationKt' type=kotlin.Function0<@[ExtensionFunctionType] kotlin.Function1<androidx.navigation.NavGraphBuilder, kotlin.Unit>> origin=INLINE_LAMBDA reflectionTarget=null
+                      $navController: GET_VAR 'navController: androidx.navigation.NavHostController declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.navigation.NavHostController origin=null
+                      $characterViewModel: GET_VAR 'val characterViewModel: com.project.zeescraper.data.CharacterViewModel [val] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=com.project.zeescraper.data.CharacterViewModel origin=null
+              CALL 'public abstract fun endReplaceGroup (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+              GET_VAR 'val tmp4_group: @[ExtensionFunctionType] kotlin.Function1<androidx.navigation.NavGraphBuilder, kotlin.Unit> [val] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=@[ExtensionFunctionType] kotlin.Function1<androidx.navigation.NavGraphBuilder, kotlin.Unit> origin=null
+            $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+            $changed: CALL 'public final fun or (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+              $this: CALL 'public final fun or (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                $this: CONST Int type=kotlin.Int value=115015728
+                other: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                  $this: CONST Int type=kotlin.Int value=14
+                  other: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Int origin=null
+              other: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                $this: CONST Int type=kotlin.Int value=896
+                other: CALL 'public final fun shl (bitCount: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                  $this: GET_VAR 'val $dirty: kotlin.Int [val] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Int origin=null
+                  bitCount: CONST Int type=kotlin.Int value=3
+            $default: CONST Int type=kotlin.Int value=24
+          WHEN type=kotlin.Unit origin=IF
+            BRANCH
+              if: CALL 'public final fun isTraceInProgress (): kotlin.Boolean declared in androidx.compose.runtime.ComposerKt' type=kotlin.Boolean origin=null
+              then: CALL 'public final fun traceEventEnd (): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+      BRANCH
+        if: CONST Boolean type=kotlin.Boolean value=true
+        then: CALL 'public abstract fun skipToGroupEnd (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+          $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+    BLOCK type=kotlin.Unit origin=null
+      BLOCK type=kotlin.Unit origin=FOLDED_SAFE_CALL
+        WHEN type=kotlin.Unit origin=FOLDED_SAFE_CALL
+          BRANCH
+            if: COMPOSITE type=kotlin.Boolean origin=null
+              VAR IR_TEMPORARY_VARIABLE name:tmp5_safe_receiver type:androidx.compose.runtime.ScopeUpdateScope? [val]
+                CALL 'public abstract fun endRestartGroup (): androidx.compose.runtime.ScopeUpdateScope? declared in androidx.compose.runtime.Composer' type=androidx.compose.runtime.ScopeUpdateScope? origin=null
+                  $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.Composer? origin=null
+              CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                  arg0: GET_VAR 'val tmp5_safe_receiver: androidx.compose.runtime.ScopeUpdateScope? [val] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.ScopeUpdateScope? origin=null
+                  arg1: CONST Null type=kotlin.Nothing? value=null
+            then: CALL 'public abstract fun updateScope (block: kotlin.Function2<androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit>): kotlin.Unit declared in androidx.compose.runtime.ScopeUpdateScope' type=kotlin.Unit origin=null
+              $this: GET_VAR 'val tmp5_safe_receiver: androidx.compose.runtime.ScopeUpdateScope? [val] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.runtime.ScopeUpdateScope? origin=null
+              block: BLOCK type=kotlin.Function2<androidx.compose.runtime.Composer?, kotlin.Int, kotlin.Unit> origin=LAMBDA
+                COMPOSITE type=kotlin.Unit origin=null
+                CALL 'public final fun <jvm-indy> <T> (dynamicCall: T of kotlin.jvm.internal.<jvm-indy>, bootstrapMethodHandle: kotlin.Any, vararg bootstrapMethodArguments: kotlin.Any): T of kotlin.jvm.internal.<jvm-indy> declared in kotlin.jvm.internal' type=kotlin.Function2<androidx.compose.runtime.Composer?, kotlin.Int, kotlin.Unit> origin=null
+                  <T>: kotlin.Function2<androidx.compose.runtime.Composer?, kotlin.Int, kotlin.Unit>
+                  dynamicCall: CALL 'public final fun invoke (p0: androidx.navigation.NavHostController, p1: androidx.compose.ui.Modifier?, p2: kotlin.Int, p3: kotlin.Int): kotlin.Function2<androidx.compose.runtime.Composer?, kotlin.Int, kotlin.Unit> declared in kotlin.jvm.internal.invokeDynamic' type=kotlin.Function2<androidx.compose.runtime.Composer?, kotlin.Int, kotlin.Unit> origin=null
+                    p0: GET_VAR 'navController: androidx.navigation.NavHostController declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.navigation.NavHostController origin=null
+                    p1: GET_VAR 'modifier: androidx.compose.ui.Modifier? [assignable] declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=androidx.compose.ui.Modifier? origin=null
+                    p2: GET_VAR '$changed: kotlin.Int declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Int origin=null
+                    p3: GET_VAR '$default: kotlin.Int declared in com.project.zeescraper.navigation.NavigationKt.NavigationHost' type=kotlin.Int origin=null
+                  bootstrapMethodHandle: CALL 'public final fun <jvm-method-handle> (tag: kotlin.Int, owner: kotlin.String, name: kotlin.String, descriptor: kotlin.String, isInterface: kotlin.Boolean): kotlin.Any declared in kotlin.jvm.internal' type=kotlin.Any origin=null
+                    tag: CONST Int type=kotlin.Int value=6
+                    owner: CONST String type=kotlin.String value="java/lang/invoke/LambdaMetafactory"
+                    name: CONST String type=kotlin.String value="metafactory"
+                    descriptor: CONST String type=kotlin.String value="(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;"
+                    isInterface: CONST Boolean type=kotlin.Boolean value=false
+                  bootstrapMethodArguments: VARARG type=kotlin.Array<kotlin.Any> varargElementType=kotlin.Any
+                    CALL 'public final fun <jvm-original-method-type> (method: kotlin.Any): kotlin.Any declared in kotlin.jvm.internal' type=kotlin.Any origin=null
+                      method: RAW_FUNCTION_REFERENCE 'public abstract fun invoke (p1: P1 of kotlin.Function2, p2: P2 of kotlin.Function2): R of kotlin.Function2 [operator] declared in kotlin.Function2' type=kotlin.Any
+                    RAW_FUNCTION_REFERENCE 'private final fun NavigationHost$lambda$12 ($navController: androidx.navigation.NavHostController, $modifier: androidx.compose.ui.Modifier?, $$changed: kotlin.Int, $$default: kotlin.Int, $composer: androidx.compose.runtime.Composer?, $force: kotlin.Int): kotlin.Unit? declared in com.project.zeescraper.navigation.NavigationKt' type=kotlin.Any
+                    CALL 'public final fun <jvm-original-method-type> (method: kotlin.Any): kotlin.Any declared in kotlin.jvm.internal' type=kotlin.Any origin=null
+                      method: RAW_FUNCTION_REFERENCE 'public abstract fun invoke (p1: androidx.compose.runtime.Composer?, p2: kotlin.Int?): kotlin.Unit? [fake_override,operator] declared in kotlin.jvm.internal.invokeDynamic.<fake>' type=kotlin.Any
+          BRANCH
+            if: CONST Boolean type=kotlin.Boolean value=true
+            then: CONST Null type=kotlin.Any? value=null
+
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:47)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate$default(FunctionCodegen.kt:40)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generateMethodNode(ClassCodegen.kt:406)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generateMethod(ClassCodegen.kt:423)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generate(ClassCodegen.kt:168)
+	at org.jetbrains.kotlin.backend.jvm.FileCodegen.lower(JvmPhases.kt:39)
+	at org.jetbrains.kotlin.backend.common.phaser.PhaseFactoriesKt.createFilePhase$lambda$4(PhaseFactories.kt:71)
+	at org.jetbrains.kotlin.backend.common.phaser.PhaseBuildersKt$createSimpleNamedCompilerPhase$1.phaseBody(PhaseBuilders.kt:69)
+	at org.jetbrains.kotlin.backend.common.phaser.SimpleNamedCompilerPhase.phaseBody(CompilerPhase.kt:226)
+	at org.jetbrains.kotlin.backend.common.phaser.AbstractNamedCompilerPhase.invoke(CompilerPhase.kt:113)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invokeSequential(performByIrFile.kt:62)
+	... 43 more
+Caused by: java.lang.IllegalStateException: Type org.jetbrains.kotlin.ir.types.impl.IrErrorTypeImpl@1acbfc11 has no arguments
+	at org.jetbrains.kotlin.ir.types.IrTypeSystemContext$DefaultImpls.getArguments(IrTypeSystemContext.kt:131)
+	at org.jetbrains.kotlin.backend.jvm.JvmIrTypeSystemContext.getArguments(JvmIrTypeSystemContext.kt:21)
+	at org.jetbrains.kotlin.codegen.CodegenUtilKt.extractUsedReifiedParameters$lambda$17$visit(codegenUtil.kt:407)
+	at org.jetbrains.kotlin.codegen.CodegenUtilKt.extractUsedReifiedParameters$lambda$17$visit(codegenUtil.kt:409)
+	at org.jetbrains.kotlin.codegen.CodegenUtilKt.extractUsedReifiedParameters(codegenUtil.kt:417)
+	at org.jetbrains.kotlin.codegen.inline.TypeParameterMappings.<init>(ReifiedTypeInliner.kt:423)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.getOrCreateCallGenerator(ExpressionCodegen.kt:1609)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall(ExpressionCodegen.kt:606)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrCall.accept(IrCall.kt:24)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitVariable(ExpressionCodegen.kt:790)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitVariable(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.declarations.IrVariable.accept(IrVariable.kt:36)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:579)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:593)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitor$DefaultImpls.visitBlock(IrElementVisitor.kt:122)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:413)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrBlock.accept(IrBlock.kt:18)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.gen(ExpressionCodegen.kt:217)
+	at org.jetbrains.kotlin.backend.jvm.codegen.IrCallGenerator.genValueAndPut(IrCallGenerator.kt:48)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall$handleParameter(ExpressionCodegen.kt:616)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall(ExpressionCodegen.kt:644)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrCall.accept(IrCall.kt:24)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:579)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:593)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitor$DefaultImpls.visitBlock(IrElementVisitor.kt:122)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:413)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrBlock.accept(IrBlock.kt:18)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitWhen(ExpressionCodegen.kt:1101)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitWhen(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrWhen.accept(IrWhen.kt:24)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:579)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlockBody(ExpressionCodegen.kt:584)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlockBody(ExpressionCodegen.kt:138)
+	at org.jetbrains.kotlin.ir.expressions.IrBlockBody.accept(IrBlockBody.kt:20)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.generate(ExpressionCodegen.kt:240)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.doGenerate(FunctionCodegen.kt:123)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:44)
+	... 53 more
+
+

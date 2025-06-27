@@ -13,7 +13,9 @@ data class CharacterList(
 data class CharacterDetail(
     val w_engines: List<WEngine>,
     val disk_drives: List<DiskDrive>,
-    val best_disk_drive_stats: List<BestDiskDriveStat>
+    val best_disk_drive_stats: List<BestDiskDriveStat>,
+    val substats: String,
+    val endgame_stats: String
 )
 
 data class WEngine(
@@ -45,6 +47,4 @@ data class ApiResponseDetail<T>(
     val status: String,
     val message: String,
     val data: T? = null,
-    val substat: String? = null,
-    val endgame_stats: String? = null
 )

@@ -23,27 +23,31 @@ class CharacterViewModel : ViewModel() {
     val error: StateFlow<String?> = _error.asStateFlow()
 
     // ✅ Load all characters
+    private val _isInitialLoad = MutableStateFlow(true)
+    val isInitialLoad: StateFlow<Boolean> = _isInitialLoad.asStateFlow()
+
     fun loadCharacters(forceRefresh: Boolean = false) {
         if (_characters.value.isNotEmpty() && !forceRefresh) return
 
         viewModelScope.launch {
+            _isInitialLoad.value = _characters.value.isEmpty()
             _isLoading.value = true
             _error.value = null
 
             repository.getAllCharacters()
-                .onSuccess { characterList ->
-                    _characters.value = characterList
-                }
-                .onFailure { exception ->
-                    _error.value = exception.message
-                }
+                .onSuccess { _characters.value = it }
+                .onFailure { _error.value = it.message }
 
             _isLoading.value = false
+            _isInitialLoad.value = false
         }
     }
 
+
+
     // ✅ Load character by ID (dengan forceRefresh)
     fun loadCharacterById(id: Int, forceRefresh: Boolean = false) {
+        _character.value = null
         if (_character.value != null && !forceRefresh) return
 
         viewModelScope.launch {
@@ -64,10 +68,5 @@ class CharacterViewModel : ViewModel() {
                 _isLoading.value = false
             }
         }
-    }
-
-    // ✅ Clear detail karakter saat screen keluar
-    fun clearCharacterDetail() {
-        _character.value = null
     }
 }

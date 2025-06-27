@@ -1,6 +1,7 @@
 package com.project.zeescraper
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -13,6 +14,7 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.*
@@ -40,7 +42,18 @@ private fun MainContent() {
 
     // Routes where bottom bar should be visible
     val bottomBarRoutes = listOf("Home", "Log")
-    val showBottomBar = currentRoute in bottomBarRoutes
+    val showBottomBar = bottomBarRoutes.any { currentRoute?.startsWith(it) == true }
+    val lastHomeId = rememberSaveable { mutableStateOf(3) }
+
+
+    LaunchedEffect(lastHomeId.value) {
+        Log.d("MainContent", "lastHomeId changed to: ${lastHomeId.value}")
+    }
+
+    // Log untuk memantau currentRoute
+    LaunchedEffect(currentRoute) {
+        Log.d("MainContent", "Current route: $currentRoute")
+    }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -56,13 +69,14 @@ private fun MainContent() {
                     animationSpec = tween(durationMillis = 300)
                 ) + fadeOut(animationSpec = tween(300))
             ) {
-                BottomNavigationBar(navController)
+                BottomNavigationBar(navController, lastHomeId)
             }
         }
     ) { innerPadding ->
         NavigationHost(
             navController = navController,
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding),
+            lastHomeId
         )
     }
 }

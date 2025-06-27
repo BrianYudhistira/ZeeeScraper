@@ -1,6 +1,7 @@
 // NavigationHost.kt with popEnterTransition optimized for HomeScreen
 package com.project.zeescraper.navigation
 
+import android.util.Log
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
 import androidx.compose.material.icons.Icons
@@ -11,6 +12,8 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -21,8 +24,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.project.zeescraper.data.CharacterViewModel
 import com.project.zeescraper.ui.Detail_screen
+import com.project.zeescraper.ui.GameHubScreen
 import com.project.zeescraper.ui.HomeScreen
 import com.project.zeescraper.ui.LogScreen
+import com.project.zeescraper.ui.PlaceHolder
 
 // Bottom nav items
 data class NavItem(val route: String, val icon: ImageVector, val label: String)
@@ -33,17 +38,25 @@ val bottomNavItems = listOf(
 )
 
 @Composable
-fun BottomNavigationBar(navController: NavHostController) {
+fun BottomNavigationBar(navController: NavHostController, lastHomeId: State<Int>) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
     NavigationBar {
         bottomNavItems.forEach { item ->
+            val isSelected = currentRoute?.startsWith(item.route) == true
+
             NavigationBarItem(
-                selected = currentRoute == item.route,
+                selected = isSelected,
                 onClick = {
-                    if (currentRoute != item.route) {
-                        navController.navigate(item.route) {
+                    val targetRoute = if (item.route == "Home") {
+                        "Home/${lastHomeId.value}"
+                    } else {
+                        item.route
+                    }
+
+                    if (currentRoute != targetRoute) {
+                        navController.navigate(targetRoute) {
                             popUpTo(navController.graph.startDestinationId) {
                                 saveState = true
                             }
@@ -57,19 +70,20 @@ fun BottomNavigationBar(navController: NavHostController) {
             )
         }
     }
+
 }
 
 @Composable
-fun NavigationHost(navController: NavHostController, modifier: Modifier = Modifier) {
-    val characterViewModel: CharacterViewModel = viewModel()
+fun NavigationHost(navController: NavHostController, modifier: Modifier = Modifier, lastHomeId: MutableState<Int>) {
+    val zzzcharacterViewModel: CharacterViewModel = viewModel()
 
     NavHost(
         navController = navController,
-        startDestination = "Home",
+        startDestination = "GameHub",
         modifier = modifier
     ) {
         composable(
-            route = "Home",
+            route = "GameHub",
             enterTransition = {
                 fadeIn(animationSpec = tween(200))
             },
@@ -83,7 +97,46 @@ fun NavigationHost(navController: NavHostController, modifier: Modifier = Modifi
                 fadeOut(animationSpec = tween(200))
             }
         ) {
-            HomeScreen(navController, characterViewModel)
+            GameHubScreen(navController)
+        }
+
+        composable(
+            route = "Home/{id}",
+            enterTransition = {
+                fadeIn(animationSpec = tween(200))
+            },
+            popEnterTransition = {
+                fadeIn(animationSpec = tween(200)) // Light transition for smooth back
+            },
+            exitTransition = {
+                fadeOut(animationSpec = tween(200))
+            },
+            popExitTransition = {
+                fadeOut(animationSpec = tween(200))
+            }
+        ) {backstackentry->
+            val id = backstackentry.arguments?.getString("id")?.toIntOrNull()
+            if (id != null) {
+                if (id == 1){
+                    lastHomeId.value = id
+                    Log.d("NavigationHost", "Navigating to HomeScreen with id: $id")
+                    PlaceHolder()
+                }
+                if (id == 2){
+                    lastHomeId.value = id
+                    Log.d("NavigationHost", "Navigating to HomeScreen with id: $id")
+                    PlaceHolder()
+                }
+                if (id == 3){
+                    lastHomeId.value = id
+                    Log.d("NavigationHost", "Navigating to HomeScreen with id: $id")
+                    HomeScreen(navController, zzzcharacterViewModel)
+                }
+                if (id == 4){
+
+                }
+            }
+
         }
 
         composable(
@@ -130,7 +183,7 @@ fun NavigationHost(navController: NavHostController, modifier: Modifier = Modifi
         ) { backStackEntry ->
             val id = backStackEntry.arguments?.getString("id")?.toIntOrNull()
             if (id != null) {
-                Detail_screen(id = id, viewModel = characterViewModel) {
+                Detail_screen(id = id, viewModel = zzzcharacterViewModel) {
                     navController.popBackStack()
                 }
             }

@@ -1,4 +1,3 @@
-// HomeScreen.kt with performance optimizations for smooth back animation
 package com.project.zeescraper.ui
 
 import androidx.compose.foundation.background
@@ -18,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -159,10 +160,10 @@ fun ProfileCardItem(
 
     Card(
         modifier = modifier
-            .aspectRatio(0.70f)
+            .aspectRatio(0.7f) // Changed to 1f for square shape
             .padding(4.dp)
             .clickable { onCardClick(card) },
-        shape = MaterialTheme.shapes.medium,
+        shape = RectangleShape, // Changed to RectangleShape for square shape
         elevation = CardDefaults.cardElevation(10.dp)
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
@@ -171,6 +172,7 @@ fun ProfileCardItem(
                 model = request,
                 contentDescription = "Character Image",
                 modifier = Modifier.fillMaxSize().background(bgColor),
+                contentScale = ContentScale.FillHeight,
                 onLoading = {
                     isImageLoading = true
                 },
